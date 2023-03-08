@@ -9,8 +9,14 @@ use App\Models\Post;
 class PostController extends Controller
 {
     public function index(){
-        $post = Post::all();
-        // return response()->json(['data' => $post]);
-        return PostResource::collection($post);
+        $posts = Post::all();
+        // return response()->json(['data' => $posts]);
+        return PostResource::collection($posts);
+    }
+
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        return new PostResource($post);
     }
 }
