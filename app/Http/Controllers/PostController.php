@@ -26,4 +26,18 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         return new PostDetailResource($post);
     }
+
+    public function store(Requet $request){
+        $request -> validate([
+            'title' => 'required|max:255',
+            'news_content' => 'required',
+        ]);
+
+        // return response()->json('sudah dapat digunakan');
+        $request ['author'] = Auth::user()->id;
+
+        $post = Post::create($request->all());
+        return new PostDetailResource($post->loadMissing('writer:id,username'));
+    }
+
 }
