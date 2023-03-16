@@ -2,29 +2,34 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Post;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PostOwner
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $currentUser = Auth::user();
+        // dd("ini menggunakan middleware");
+
+        $currentUser  = Auth::user();
         $post = Post::findOrFail($request->id);
 
         if ($post -> author != $currentUser->id) {
             return response()->json([
                 'message' => 'data not found'
             ], 404);
-
-            return repsonse()->json($currentUser);
         }
+
+        // return response()->json($currentUser);
 
         return $next($request);
     }

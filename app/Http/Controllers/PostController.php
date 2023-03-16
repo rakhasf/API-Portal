@@ -40,7 +40,7 @@ class PostController extends Controller
     }
 
     public function update(Request $request, $id){
-        $request -> validate ([
+        $request -> validate([
             'title' => 'required|max:255',
             'news_content' => 'required',
         ]);
@@ -52,6 +52,15 @@ class PostController extends Controller
         return new PostDetailResource($post->loadMissing('writer:id,name'));
 
         
+    }
+
+    public function delete($id){
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return response()->json([
+            'message' => "data successfully deleted"
+        ]);
     }
 
 }
