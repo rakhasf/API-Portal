@@ -23,4 +23,11 @@ class CommentController extends Controller
 
         return new CommentResource($comment->loadMissing(['commentator:id,name']));
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            
+        ]);
+    }
 }
