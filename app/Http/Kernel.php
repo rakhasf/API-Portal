@@ -64,6 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'post.owner' => \App\Http\Middleware\PostOWner::class,
-        'comment.owner' => \App\Http\Middleware\CommentOWner::class,
+        'comment.owner' => \App\Http\Middleware\CommentOwner::class,
     ];
 }

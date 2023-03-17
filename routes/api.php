@@ -14,9 +14,9 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::delete('/posts/{id}', [PostController::class, 'delete'])->middleware(['post.owner']);
 
     Route::post('/comment', [CommentController::class, 'store']);
-    Route::post('/comment/{id}', [CommentController::class, 'update']);
+    Route::patch('/comment/{id}', [CommentController::class, 'update'])->middleware(['comment.owner']);
 
-    Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['comment.owner']);;
+    Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/me', [AuthenticationController::class, 'me']);
     
 });
